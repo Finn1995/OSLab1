@@ -10,7 +10,19 @@ namespace OSLab1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Школьники!");
+            Worker worker = new Worker();
+            Random rand = new Random();
+            for (int i=0; i<10; i++)
+            {
+                Array values = Enum.GetValues(typeof(Priority));
+                Priority priora = (Priority)values.GetValue(rand.Next(values.Length));
+
+                int sleep = rand.Next(1, 5);
+                Task task = new Task("task" + Convert.ToString(i), priora, sleep);
+                worker.addTask(task);
+            }
+            worker.run();
+            Console.WriteLine("All tasks ends");
             Console.ReadKey();
         }
     }
